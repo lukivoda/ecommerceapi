@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Product;
 
-use App\Models\Product;
+
 use Illuminate\Http\Resources\Json\Resource;
 
 class ProductCollection extends Resource
