@@ -13,6 +13,8 @@ use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 
 class Handler extends ExceptionHandler
 {
+
+    use ExceptionTrait;
     /**
      * A list of the exception types that are not reported.
      *
@@ -56,20 +58,11 @@ class Handler extends ExceptionHandler
     {
 
         if($request->expectsJson()) {
-            if ($exception instanceof ModelNotFoundException) {
-                return response()->json([
-                    "errors" => "Product model not found!"
-                ], Response::HTTP_NOT_FOUND);
-            }
 
-            if($exception instanceof  NotFoundHttpException) {
-                return response()->json([
-                    "errors" => "Incorrect route"
-                ],Response::HTTP_NOT_FOUND);
-            }
+               return $this->apiException($request,$exception);
         }
 
-        dd($exception);
+        //dd($exception);
         return parent::render($request, $exception);
     }
 }
